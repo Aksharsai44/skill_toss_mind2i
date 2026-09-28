@@ -98,11 +98,26 @@ Teacher assignment/resource creation currently creates open/shared records immed
 
 ## Recently Completed
 
+- Pulled remote repository `https://github.com/Aksharsai44/skill_toss2.git` (`origin/main` commit `60db53f`) and resolved all merge conflicts cleanly. Merged Super Admin RBAC Role Builder (`RoleBuilder.tsx`), Product Admin Enterprise Management Suite (`ProductAdminAddons.tsx`), Super Admin Addons (`SuperAdminAddons.tsx`), and synchronized domain types & router paths in `App.tsx`.
+- Completely decoupled Community Chat (`/teacher/community`, `CommunityChatWorkspace.tsx`) and Discussion Forum (`/teacher/forum`, `DiscussionForumHub.tsx`) into separate top-level components and routes across Teacher, Student, and Admin portals.
+- Fixed Notes & Resources PDF downloads by generating standard `%PDF-1.4` binary stream structures for fallback/seed files, and fixed LINK resource URL opening with automatic protocol resolution.
+- Redesigned and fully implemented Notes & Resources module with real-time Supabase PostgreSQL persistence, atomic stored procedure `increment_resource_download`, working native browser file downloads, LINK URL opening, real-time search/filter, delete confirmation modal, and multi-tab BroadcastChannel sync across Teacher and Student portals.
+- Redesigned and fully implemented Community platform (`CommunityChatWorkspace.tsx`, `lmsData.tsx`, `types.ts`) into a full-width (~95% viewport width) Team Community / Academic Community collaboration space (Microsoft Teams & LinkedIn feed style) across Teacher, Student, and Admin portals.
+- Redesigned Teacher Dashboard Batch Management section into a clean, professional 5-part architecture connected to real-time Supabase PostgreSQL data.
+- Redesigned and fully implemented Course Management System with multi-step Course Builder, Curriculum Builder (Modules & Lessons), 9 Lesson Types (Video, PDF, Doc, PPT, Text, External Link, Coding Exercise, Quiz, Assignment), AI Course Assistant ("✨ Generate with AI"), Admin Review Workflow (Approve, Request Changes with feedback, Reject, Publish), Course Versioning, Real-Time Supabase & BroadcastChannel sync, Student Course Learning Player, Course Analytics, and AI Learning Insights.
+- Redesigned Discussion Forum (`DiscussionForumHub.tsx`, `DiscussionCard.tsx`, `AskQuestionModal.tsx`, `20260828190000_realtime_discussion_forum.sql`) into a full-width 1-column Quora-inspired academic hub across Teacher, Student, and Admin portals.
 - Added shared Jitsi live classroom/session completion and Supabase class-session Realtime plumbing.
 - Added reusable validated attachments for student submissions and teacher assignment/resource materials with local IndexedDB persistence.
+- Redesigned and fully implemented Class Recordings workflow (`20260903180000_create_class_recordings.sql`, `VideoPlayerModal.tsx`, `AttendeesModal.tsx`, `CreateRecordingModal.tsx`, `lmsData.tsx`, `lmsDataContext.ts`, `types.ts`) across Teacher, Student, and Admin portals.
+- Redesigned and fully implemented the Real-Time Academic Calendar System (`20260903190000_create_academic_calendar_events.sql`, `AcademicCalendarView.tsx`, `CreateEventModal.tsx`, `EventDetailsModal.tsx`, `lmsData.tsx`, `lmsDataContext.ts`, `types.ts`) across Teacher, Student, and Admin portals.
+- Redesigned and fully implemented Teacher Dashboard → Exams & Assessments & complete Real-Time Exam Management Lifecycle (`20260903200000_create_exams_and_submissions.sql`, `CreateExamModal.tsx`, `TeacherExamDetailsModal.tsx`, `StudentExamPlayerModal.tsx`, `lmsData.tsx`, `lmsDataContext.ts`, `types.ts`) across Teacher, Student, and Admin portals.
+- Redesigned and fully implemented Teacher Dashboard → My Profile into a Google-Style Real-Time Account Management System (`20260903210000_enhance_teacher_profiles.sql`, `TeacherProfileManager.tsx`, `lmsData.tsx`, `lmsDataContext.ts`, `types.ts`).
 - Added profile avatar persistence/removal, profile/settings navigation behavior, and teacher/admin/product-admin addon areas.
-- Finished Product Admin and Super Admin frontend dashboards by replacing placeholder text/charts with functional `Recharts` and adding `Modal` forms for all creation actions (Branches, Campaigns, Roadmaps, AI Betas).
-- Pushed clean repository to GitHub: `https://github.com/Aksharsai44/skill_toss_mind2i.git`.
+- Redesigned and fully implemented the unified Teacher Dashboard UI/UX and API-Ready Frontend Architecture across `src/components/teacher/` and `src/services/teacherService.ts`.
+- Finished Product Admin and Super Admin frontend dashboards by replacing placeholder text/charts with functional `Recharts` and adding `Modal` forms for all creation actions.
+- Completed Phase 2: Teacher Dashboard Backend Core & Data Integration (`20260923220000_teacher_dashboard_backend_api.sql`, `src/services/teacherBackendApi.ts`, `src/services/teacherService.ts`, `src/services/__tests__/teacherBackendApi.test.ts`, and `src/components/teacher/`).
+- Redesigned Teacher Dashboard → Batch Management into a minimal, clean, professional Enterprise LMS workspace.
+- Integrated all latest features from `skill_toss2.git` while keeping `skill_toss2` completely untouched.
 - Completed high-polish modern UI overhaul (glassmorphism tokens, animated hero, card grid, interactive quick-login switcher, stats pills).
 - Prepared zero-config cloud deployment support with `vercel.json` (SPA client-side routing rewrites), `netlify.toml`, and `public/_redirects`.
 - Resolved Rollup circular chunk dependency error (`Cannot access 'P' before initialization at charts-*.js`) by removing artificial vendor chunk splitting of React and Recharts in `vite.config.ts`.
