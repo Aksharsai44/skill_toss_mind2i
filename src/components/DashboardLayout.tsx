@@ -108,17 +108,18 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white border-r border-ink-200/80 flex flex-col transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]',
+          'fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white border-r border-ink-200/60 flex flex-col transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]',
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         )}
       >
+        {/* Sidebar header with gradient accent */}
         <div className="flex items-center gap-2.5 px-5 h-16 border-b border-ink-100 shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold font-display">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold font-display shadow-sm">
             ST
           </div>
           <div>
             <p className="font-bold font-display text-ink-900 leading-none">Skill Toss</p>
-            <p className="text-[10px] text-ink-400 mt-0.5">{roleLabels[profile.role]} Portal</p>
+            <p className="text-[10px] text-ink-400 mt-0.5 font-medium">{roleLabels[profile.role]} Portal</p>
           </div>
           <button aria-label="Close navigation" onClick={() => setMobileOpen(false)} className="btn-ghost lg:hidden ml-auto p-2 text-ink-500">
             <X className="w-5 h-5" />
@@ -166,12 +167,12 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      {mobileOpen && <div className="fixed inset-0 z-30 bg-ink-950/30 lg:hidden" onClick={() => setMobileOpen(false)} />}
+      {mobileOpen && <div className="fixed inset-0 z-30 bg-ink-950/30 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} />}
 
       {/* Main */}
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Topbar */}
-        <header className="app-chrome sticky top-0 z-20 h-16 bg-white border-b border-ink-200 flex items-center px-3 sm:px-4 lg:px-6 gap-3 lg:gap-4">
+        <header className="glass-nav sticky top-0 z-20 h-16 border-b border-ink-200/60 flex items-center px-3 sm:px-4 lg:px-6 gap-3 lg:gap-4">
           <button aria-label="Open navigation" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)} className="btn-ghost lg:hidden p-2 text-ink-500">
             <Menu className="w-5 h-5" />
           </button>
@@ -181,14 +182,14 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
             <input
               aria-label={profile.role === 'student' || profile.role === 'parent' ? 'Search courses, assignments, resources…' : 'Search students, batches, records…'}
               placeholder={profile.role === 'student' || profile.role === 'parent' ? 'Search courses, assignments, resources…' : 'Search students, batches, records…'}
-              className="w-full min-h-10 pl-9 pr-4 py-2 text-sm bg-ink-50 border border-ink-200 rounded-control placeholder:text-ink-400 focus:bg-white focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/15 transition-colors duration-150"
+              className="w-full min-h-10 pl-9 pr-4 py-2 text-sm bg-ink-50/80 border border-ink-200/70 rounded-xl placeholder:text-ink-400 focus:bg-white focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/15 transition-all duration-150"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
             />
             {searchOpen && (
-              <div ref={searchResultsRef} className="absolute left-0 right-0 top-full mt-2 z-30 bg-white border border-ink-200 rounded-xl shadow-pop overflow-hidden origin-top" role="listbox" aria-label="Search results">
+              <div ref={searchResultsRef} className="absolute left-0 right-0 top-full mt-2 z-30 bg-white border border-ink-200/80 rounded-xl shadow-pop overflow-hidden origin-top" role="listbox" aria-label="Search results">
                 {searchResults.length ? searchResults.map((item) => (
-                  <button key={`${item.type}-${item.id}`} onClick={() => { navigate(item.path); setSearchQuery(''); }} className="w-full px-4 py-3 text-left hover:bg-ink-50 border-b border-ink-50 last:border-0">
+                  <button key={`${item.type}-${item.id}`} onClick={() => { navigate(item.path); setSearchQuery(''); }} className="w-full px-4 py-3 text-left hover:bg-ink-50 border-b border-ink-50 last:border-0 transition-colors">
                     <span className="block text-sm font-semibold text-ink-800">{item.title}</span>
                     <span className="block text-xs text-ink-400 capitalize">{item.type} · {item.subtitle}</span>
                   </button>
@@ -206,7 +207,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
             >
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-0.5 right-0.5 min-w-4 h-4 px-1 bg-error-500 text-white text-[10px] leading-4 rounded-full ring-2 ring-white">{unreadCount}</span>
+                <span className="absolute top-0.5 right-0.5 min-w-4 h-4 px-1 bg-gradient-to-r from-error-500 to-error-600 text-white text-[10px] leading-4 rounded-full ring-2 ring-white font-semibold">{unreadCount}</span>
               )}
             </button>
             {showNotifications && (
@@ -219,7 +220,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                   ref={notificationsRef}
                   tabIndex={-1}
                   onKeyDown={(e) => { if (e.key === 'Escape') setShowNotifications(false); }}
-                  className="absolute right-0 top-full mt-2 w-[min(22rem,calc(100vw-1.5rem))] bg-white rounded-dialog shadow-pop border border-ink-200 z-20 overflow-hidden origin-top-right"
+                  className="absolute right-0 top-full mt-2 w-[min(22rem,calc(100vw-1.5rem))] bg-white rounded-2xl shadow-pop border border-ink-200/80 z-20 overflow-hidden origin-top-right"
                 >
                   <div className="p-4 border-b border-ink-100 flex items-center justify-between">
                     <div>
@@ -227,12 +228,12 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                       <p className="text-xs text-ink-400">Academic, fees and class updates</p>
                     </div>
                     {unreadCount > 0 && (
-                      <button onClick={() => markAllNotificationsRead(notificationUserId)} className="text-xs font-semibold text-primary-600">
+                      <button onClick={() => markAllNotificationsRead(notificationUserId)} className="text-xs font-semibold text-primary-600 hover:text-primary-700 transition-colors">
                         Mark all read
                       </button>
                     )}
                   </div>
-                  <div className="max-h-80 overflow-y-auto">
+                  <div className="max-h-80 overflow-y-auto scrollbar-thin">
                     {notifications.length === 0 ? (
                       <p className="p-6 text-sm text-center text-ink-500">No notifications.</p>
                     ) : (
@@ -246,9 +247,9 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                               setShowNotifications(false);
                               if (notification.path) navigate(notification.path);
                             }}
-                            className={cn('w-full text-left p-4 border-b border-ink-50 hover:bg-ink-50 flex gap-3', unread && 'bg-primary-50/50')}
+                            className={cn('w-full text-left p-4 border-b border-ink-50 hover:bg-ink-50/70 flex gap-3 transition-colors', unread && 'bg-primary-50/40')}
                           >
-                            <span className={cn('mt-1 w-2 h-2 rounded-full shrink-0', unread ? 'bg-primary-600' : 'bg-ink-200')} />
+                            <span className={cn('mt-1.5 w-2 h-2 rounded-full shrink-0', unread ? 'bg-primary-600' : 'bg-ink-200')} />
                             <span className="min-w-0">
                               <span className="flex items-center gap-2">
                                 <span className="text-sm font-semibold text-ink-800">{notification.title}</span>
@@ -270,9 +271,9 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
               onClick={() => setShowProfile(!showProfile)}
               aria-label="Open account menu"
               aria-expanded={showProfile}
-              className="flex items-center gap-2.5 p-1 pr-2 hover:bg-ink-100 rounded-xl transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30"
+              className="flex items-center gap-2.5 p-1 pr-2 hover:bg-ink-100/80 rounded-xl transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30"
             >
-              <img src={displayAvatar} alt={displayName} className="w-8 h-8 rounded-lg bg-ink-100 object-cover" />
+              <img src={displayAvatar} alt={displayName} className="w-8 h-8 rounded-xl bg-ink-100 object-cover ring-1 ring-ink-200/60" />
               <div className="hidden sm:block text-left">
                 <p className="text-sm font-semibold text-ink-800 leading-none">{displayName}</p>
                 <p className="text-[11px] text-ink-400 mt-0.5">{displayInstitution}</p>
@@ -286,21 +287,21 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                   ref={profileMenuRef}
                   tabIndex={-1}
                   onKeyDown={(e) => { if (e.key === 'Escape') setShowProfile(false); }}
-                  className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-pop border border-ink-200 py-2 z-20 origin-top-right"
+                  className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-pop border border-ink-200/80 py-2 z-20 origin-top-right"
                 >
-                  <div className="px-4 py-2 border-b border-ink-50">
+                  <div className="px-4 py-2.5 border-b border-ink-50">
                     <p className="text-sm font-semibold text-ink-800">{displayName}</p>
                     <p className="text-xs text-ink-400">{user?.email}</p>
                   </div>
-                  <button onClick={() => { setShowProfile(false); navigate(profile.role === 'teacher' ? '/teacher/profile' : profile.role === 'student' || profile.role === 'parent' ? '/student/profile' : `/${profile.role}/profile`); }} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-ink-600 hover:bg-ink-50 transition">
+                  <button onClick={() => { setShowProfile(false); navigate(profile.role === 'teacher' ? '/teacher/profile' : profile.role === 'student' || profile.role === 'parent' ? '/student/profile' : `/${profile.role}/profile`); }} className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink-600 hover:bg-ink-50 transition-colors">
                     <UserCircle className="w-4 h-4" /> My Profile
                   </button>
-                  <button onClick={() => { setShowProfile(false); navigate(profile.role === 'student' || profile.role === 'parent' ? '/student/settings' : profile.role === 'teacher' ? '/teacher/profile' : `/${profile.role}`); }} className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-ink-600 hover:bg-ink-50 transition">
+                  <button onClick={() => { setShowProfile(false); navigate(profile.role === 'student' || profile.role === 'parent' ? '/student/settings' : profile.role === 'teacher' ? '/teacher/profile' : `/${profile.role}`); }} className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink-600 hover:bg-ink-50 transition-colors">
                     <Settings className="w-4 h-4" /> Settings
                   </button>
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-error-600 hover:bg-error-50 transition border-t border-ink-50 mt-1 pt-2"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-error-600 hover:bg-error-50 transition-colors border-t border-ink-50 mt-1 pt-2.5"
                   >
                     <LogOut className="w-4 h-4" /> Sign Out
                   </button>
@@ -319,4 +320,3 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-

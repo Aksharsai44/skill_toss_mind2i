@@ -5,6 +5,15 @@ import { ROLE_HOME_ROUTES, useAuth } from '@/lib/authContext';
 import type { UserRole } from '@/lib/types';
 import { fadeOut } from '@/lib/motion';
 
+const roleIcons: Record<string, string> = {
+  'Product Admin': '🛡️',
+  'Super Admin': '⚡',
+  'Admin': '🏫',
+  'Teacher': '👩‍🏫',
+  'Student': '🎓',
+  'Parent': '👨‍👧',
+};
+
 export function LoginPage() {
   const navigate = useNavigate();
   const { user, profile, signIn, loading: authLoading } = useAuth();
@@ -67,14 +76,18 @@ export function LoginPage() {
   ];
 
   return (
-    <div ref={panelRef} className="min-h-screen bg-ink-50 flex flex-col justify-center py-10 sm:py-12 sm:px-6 lg:px-8 relative">
+    <div ref={panelRef} className="min-h-screen auth-bg flex flex-col justify-center py-10 sm:py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="floating-orb w-72 h-72 bg-primary-400/15 -top-20 right-10" />
+      <div className="floating-orb w-56 h-56 bg-accent-400/10 bottom-20 -left-16" style={{ animationDelay: '4s' }} />
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <button
           aria-label="Return to Skill Toss home"
           className="mx-auto flex justify-center items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30"
           onClick={() => navigate('/')}
         >
-          <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold font-display text-xl shadow-soft">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold font-display text-xl shadow-glow">
             ST
           </div>
           <span className="font-bold font-display text-2xl text-ink-900">Skill Toss</span>
@@ -88,11 +101,11 @@ export function LoginPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10 px-4">
-        <div className="bg-white py-7 px-5 shadow-card rounded-dialog sm:px-8 border border-ink-200">
+        <div className="glass-card py-7 px-5 rounded-2xl sm:px-8">
           {errorMessage && (
-            <div id="login-error" role="alert" aria-live="assertive" className="mb-6 p-4 rounded-xl bg-danger-50 border border-danger-100 flex items-start gap-3 animate-fade-in">
-              <AlertCircle className="w-5 h-5 text-danger-600 shrink-0 mt-0.5" />
-              <div className="text-sm text-danger-700 font-medium">{errorMessage}</div>
+            <div id="login-error" role="alert" aria-live="assertive" className="mb-6 p-4 rounded-xl bg-error-50 border border-error-100 flex items-start gap-3 animate-fade-in">
+              <AlertCircle className="w-5 h-5 text-error-600 shrink-0 mt-0.5" />
+              <div className="text-sm text-error-700 font-medium">{errorMessage}</div>
             </div>
           )}
 
@@ -101,7 +114,7 @@ export function LoginPage() {
               <label htmlFor="email" className="block text-sm font-medium text-ink-700">
                 Email address
               </label>
-              <div className="mt-1 relative rounded-xl shadow-sm">
+              <div className="mt-1.5 relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-ink-400" />
                 </div>
@@ -125,7 +138,7 @@ export function LoginPage() {
               <label htmlFor="password" className="block text-sm font-medium text-ink-700">
                 Password
               </label>
-              <div className="mt-1 relative rounded-xl shadow-sm">
+              <div className="mt-1.5 relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-ink-400" />
                 </div>
@@ -146,7 +159,7 @@ export function LoginPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute inset-y-0 right-0 px-3 flex items-center text-ink-400 hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500/30 rounded-r-xl"
+                  className="absolute inset-y-0 right-0 px-3 flex items-center text-ink-400 hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500/30 rounded-r-lg"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -184,7 +197,7 @@ export function LoginPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full btn-primary py-3 text-base flex justify-center items-center gap-2"
+                className="w-full btn-primary py-3 text-base flex justify-center items-center gap-2 shadow-glow"
               >
                 {isSubmitting ? (
                   <>
@@ -212,10 +225,11 @@ export function LoginPage() {
                   key={demo.email}
                   type="button"
                   onClick={() => fillDemoAccount(demo.email)}
-                  className="min-h-9 px-2.5 py-1.5 text-xs font-medium border border-ink-200 rounded-lg text-ink-700 bg-ink-50 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30 active:scale-[0.98] text-left truncate"
+                  className="min-h-10 px-3 py-2 text-xs font-medium border border-ink-200/70 rounded-xl text-ink-700 bg-ink-50/50 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30 active:scale-[0.98] text-left flex items-center gap-2"
                   title={`Fill ${demo.label} (${demo.email})`}
                 >
-                  {demo.label}
+                  <span className="text-base leading-none">{roleIcons[demo.label] || '👤'}</span>
+                  <span className="truncate">{demo.label}</span>
                 </button>
               ))}
             </div>

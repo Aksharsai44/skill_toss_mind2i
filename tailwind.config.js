@@ -88,19 +88,20 @@ export default {
         },
       },
       boxShadow: {
-        soft: '0 1px 2px rgba(15, 23, 42, 0.04)',
-        card: '0 4px 14px -8px rgba(15, 23, 42, 0.18)',
-        pop: '0 16px 36px -16px rgba(15, 23, 42, 0.28)',
+        soft: '0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02)',
+        card: '0 4px 16px -6px rgba(15, 23, 42, 0.12), 0 2px 6px -2px rgba(15, 23, 42, 0.06)',
+        pop: '0 20px 48px -16px rgba(15, 23, 42, 0.2), 0 8px 16px -8px rgba(15, 23, 42, 0.08)',
+        glow: '0 0 0 3px rgba(37, 99, 235, 0.1), 0 4px 16px -4px rgba(37, 99, 235, 0.15)',
       },
       borderRadius: {
-        sm: '0.125rem', // 2px
-        md: '0.25rem', // 4px
-        lg: '0.375rem', // 6px
-        xl: '0.5rem',
-        '2xl': '0.875rem',
-        control: '0.25rem',
-        card: '0.25rem',
-        dialog: '0.375rem',
+        sm: '0.375rem', // 6px
+        md: '0.5rem', // 8px
+        lg: '0.75rem', // 12px
+        xl: '1rem', // 16px
+        '2xl': '1.25rem', // 20px
+        control: '0.5rem',
+        card: '0.75rem',
+        dialog: '1rem',
       },
       animation: {
         'fade-in': 'fadeIn 180ms cubic-bezier(0.23, 1, 0.32, 1)',
