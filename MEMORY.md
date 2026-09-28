@@ -105,6 +105,7 @@ Teacher assignment/resource creation currently creates open/shared records immed
 - Pushed clean repository to GitHub: `https://github.com/Aksharsai44/skill_toss_mind2i.git`.
 - Completed high-polish modern UI overhaul (glassmorphism tokens, animated hero, card grid, interactive quick-login switcher, stats pills).
 - Prepared zero-config cloud deployment support with `vercel.json` (SPA client-side routing rewrites), `netlify.toml`, and `public/_redirects`.
+- Resolved Rollup circular chunk dependency error (`Cannot access 'P' before initialization at charts-*.js`) by removing artificial vendor chunk splitting of React and Recharts in `vite.config.ts`.
 
 ## Update Rules and Source of Truth
 
